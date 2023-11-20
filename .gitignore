@@ -1,0 +1,5 @@
+node_modules
+DIST
+todo.md
+.env
+errors-log
