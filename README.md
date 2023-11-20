@@ -12,7 +12,7 @@ To Run The Server you must have the following in environment variables or .env f
 Test if server is up:
 
 * GET /test-server-up
-  respinse "server is up" 
+  response "server is up" 
 
 Users:
 
