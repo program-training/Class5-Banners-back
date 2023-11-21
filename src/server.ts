@@ -1,13 +1,13 @@
 import express, { json } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
-import { connect } from 'mongoose'
 import morgan from 'morgan'
 import chalk from 'chalk'
 
 import { transporter } from './utils/send-email'
 import router from './router/router'
 import errors from './errors/massages'
+import { connect } from './utils/connect-to-posgreSQL'
 
 const app = express()
 
@@ -17,16 +17,21 @@ app.use(json())
 app.use(router)
 
 const start = async () => {
+
     console.log(chalk.blue('connecting to mongoBD...'));
-    if (!process.env.MONGODB_URI) throw new Error(errors.DBURImissing);
-    await connect(process.env.MONGODB_URI)
+    if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
+    await connect()
     console.log(chalk.green('connected successfully to mongoDB'));
 
-    // console.log(chalk.blue('verifying gmail client...'));
-    // if (!process.env.GMAIL_USERNAME) throw new Error(errors.gmailUNmissing);
-    // if (!process.env.GMAIL_APP_PASSWORD) throw new Error(errors.gmailPWmissing);
-    // await transporter.verify()
-    // console.log(chalk.green('gmail client successfully verified'));
+    console.log(chalk.blue('connecting to postgreSQL...'))
+    if (!process.env.POSTGRESQL_CONNECTION_STRING) throw new Error(errors.postgreSQLconStrMissing)
+    console.log(chalk.green('connected successfully to postgreSQL'));
+    
+    console.log(chalk.blue('verifying gmail client...'));
+    if (!process.env.GMAIL_USERNAME) throw new Error(errors.gmailUNmissing);
+    if (!process.env.GMAIL_APP_PASSWORD) throw new Error(errors.gmailPWmissing);
+    await transporter.verify()
+    console.log(chalk.green('gmail client successfully verified'));
 
     const port = process.env.PORT
     if (!port) throw new Error(errors.portMissing);

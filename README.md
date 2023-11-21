@@ -5,6 +5,7 @@ To Run The Server you must have the following in environment variables:
 * GMAIL_USERNAME
 * GMAIL_APP_PASSWORD
 * MONGODB_URI
+* POSTGRESQL_CONNECTION_STRING
 * PORT
 
 ## API

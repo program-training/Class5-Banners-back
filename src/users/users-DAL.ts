@@ -1,27 +1,17 @@
-import { Schema, model } from "mongoose";
-import { NewUserDBI, UserI } from "../types/types";
-import errors from '../errors/massages'
+import pg from 'pg'
 
-const userSchema = new Schema<UserI>({
-    email: { type: String, require: true, unique: true },
-    username: { type: String, require: true },
-    isAdmin: { type: Boolean, require: true },
-    passwordHash: { type: String, require: true },
-});
-
-const User = model('user', userSchema)
-
-export const addUser = async (user: NewUserDBI) => {
-    try {
-        const newUser = new User(user)
-        const savedUser = await newUser.save()
-        return savedUser
-    } catch (error) {
-        if (error instanceof Error && 
-            error.message.includes('duplicate key error') &&
-            error.message.includes('index: email')) {
-                return Promise.reject(new Error(errors.emailExist))
-            }
-        return Promise.reject(error)
+var conString = process.env.POSTGRESQL_CONNECTION_STRING
+var client = new pg.Client(conString);
+client.connect(function(err) {
+  if(err) {
+    return console.error('could not connect to postgres', err);
+  }
+  client.query('SELECT NOW() AS "theTime"', function(err, result) {
+    if(err) {
+      return console.error('error running query', err);
     }
-}
+    console.log(result.rows[0].theTime);
+    // >> output: 2018-08-23T14:02:57.117Z
+    client.end();
+  });
+});

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { NewUserReqI } from '../../types/types';
-import { addUser } from '../users-DAL';
+import { addUser } from '../users-DAL-mongoDB';
 
 const saltRounds = 10;
 
