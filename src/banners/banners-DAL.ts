@@ -3,15 +3,13 @@ import { BannerI, NewBannerI } from "../types/types";
 import errors from '../errors/massages'
 
 const bannerSchema = new Schema<BannerI>({
-    productID: { type: String, unique: true },
-    title: String,
-    description: String,
-    imageURL: String,
-    note: String,
-    author: {
-        type: Schema.Types.ObjectId, 
-        ref: 'Person' 
-      }
+    productID: { type: String, required: true, unique: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true }, 
+    imageURL: { type: String, required: true },
+    note: { type: String, required: true },
+    productURL: { type: String, require: true },
+    authorID: { type: String, required: true }
 });
 
 const Banner = model('banner', bannerSchema)
@@ -19,6 +17,8 @@ const Banner = model('banner', bannerSchema)
 export const addBanner = async (banner: NewBannerI) => {
     try {
         const newBanner = new Banner(banner)
+        console.log('new baner:', newBanner);
+        
         const savedBanner = await newBanner.save()
         return savedBanner
     } catch (error) {

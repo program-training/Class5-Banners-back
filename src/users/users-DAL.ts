@@ -1,7 +1,8 @@
 import pg from 'pg'
 
-var conString = process.env.POSTGRESQL_CONNECTION_STRING
-var client = new pg.Client(conString);
+import { client } from '../utils/connect-to-postgreSQL';
+import { NewUserDBI } from '../types/types';
+
 client.connect(function(err) {
   if(err) {
     return console.error('could not connect to postgres', err);
@@ -15,3 +16,12 @@ client.connect(function(err) {
     client.end();
   });
 });
+
+export const addUser = async (user: NewUserDBI) => {
+  try {
+    const newUser = await client.query(`
+    `)
+  } catch (error) {
+    
+  }
+}

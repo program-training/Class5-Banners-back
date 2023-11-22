@@ -24,6 +24,8 @@ export default async (req: Request, res: Response) => {
             }})
         }
         banner.note ||= ''
+        // get the user from token
+        banner.authorID = 'some id'
         const newBanner = await addBanner(banner)
         res.send(newBanner)
     } catch (error) {

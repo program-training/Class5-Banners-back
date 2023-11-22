@@ -1,9 +1,8 @@
-import { ObjectId } from "mongoose"
-
 export interface UserBaseI {
     email: string
     username: string
     isAdmin: boolean
+    bannersIDs: string[]
 }
 
 export interface NewUserReqI extends UserBaseI {
@@ -23,11 +22,12 @@ export interface NewBannerReqI {
     title: string
     description: string
     imageURL: string
+    productURL: string
     note: string
 }
 
 export interface NewBannerI extends NewBannerReqI {
-    author: ObjectId 
+    authorID: string
 }
 
 export interface BannerI extends NewBannerI {

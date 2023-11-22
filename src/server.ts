@@ -1,18 +1,19 @@
 import express, { json } from 'express'
-import cors from 'cors'
 import 'dotenv/config'
-import morgan from 'morgan'
 import chalk from 'chalk'
 
 import { transporter } from './utils/send-email'
 import router from './router/router'
 import errors from './errors/massages'
-import { connect } from './utils/connect-to-posgreSQL'
+import connectToPostgreSQL from './utils/connect-to-postgreSQL'
+import connectToMongoDB from './utils/connect-to-mongoDB'
+import morganLogger from './logger/morgan-logger'
+import customCors from './cors/custom-cors'
 
 const app = express()
 
-app.use(morgan(':date[iso] :method :url :status :response-time ms'))
-app.use(cors())
+app.use(morganLogger)
+app.use(customCors)
 app.use(json())
 app.use(router)
 
@@ -20,11 +21,12 @@ const start = async () => {
 
     console.log(chalk.blue('connecting to mongoBD...'));
     if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
-    await connect()
+    connectToMongoDB(process.env.MONGODB_URI)
     console.log(chalk.green('connected successfully to mongoDB'));
-
+    
     console.log(chalk.blue('connecting to postgreSQL...'))
     if (!process.env.POSTGRESQL_CONNECTION_STRING) throw new Error(errors.postgreSQLconStrMissing)
+    await connectToPostgreSQL()
     console.log(chalk.green('connected successfully to postgreSQL'));
     
     console.log(chalk.blue('verifying gmail client...'));
