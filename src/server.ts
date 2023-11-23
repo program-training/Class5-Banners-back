@@ -9,6 +9,7 @@ import connectToPostgreSQL from './utils/connect-to-postgreSQL'
 import connectToMongoDB from './utils/connect-to-mongoDB'
 import morganLogger from './logger/morgan-logger'
 import customCors from './cors/custom-cors'
+import initialPostgreSQL from './utils/initial-postgreSQL'
 
 const app = express()
 
@@ -22,18 +23,24 @@ const start = async () => {
     console.log(chalk.blue('connecting to mongoBD...'));
     if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
     connectToMongoDB(process.env.MONGODB_URI)
-    console.log(chalk.green('connected successfully to mongoDB'));
+    console.log(chalk.green('done'));
     
     console.log(chalk.blue('connecting to postgreSQL...'))
     if (!process.env.POSTGRESQL_CONNECTION_STRING) throw new Error(errors.postgreSQLconStrMissing)
     await connectToPostgreSQL()
-    console.log(chalk.green('connected successfully to postgreSQL'));
+    console.log(chalk.green('done'));
+
+    console.log(chalk.blue('initializing databases...'));
+    await initialPostgreSQL()
+    console.log(chalk.green('done'));
+    
+    
     
     console.log(chalk.blue('verifying gmail client...'));
     if (!process.env.GMAIL_USERNAME) throw new Error(errors.gmailUNmissing);
     if (!process.env.GMAIL_APP_PASSWORD) throw new Error(errors.gmailPWmissing);
     await transporter.verify()
-    console.log(chalk.green('gmail client successfully verified'));
+    console.log(chalk.green('done'));
 
     const port = process.env.PORT
     if (!port) throw new Error(errors.portMissing);
