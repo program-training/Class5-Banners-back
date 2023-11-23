@@ -34,8 +34,6 @@ const start = async () => {
     await initialPostgreSQL()
     console.log(chalk.green('done'));
     
-    
-    
     console.log(chalk.blue('verifying gmail client...'));
     if (!process.env.GMAIL_USERNAME) throw new Error(errors.gmailUNmissing);
     if (!process.env.GMAIL_APP_PASSWORD) throw new Error(errors.gmailPWmissing);
