@@ -53,3 +53,21 @@ export const getBannerByProdIDQuery = async (prodId: string) => {
     return Promise.reject(error);
   }
 };
+
+export const getBannerByBannerIDQuery = async (bannerId: string) => {
+  try {
+    const banner = await Banner.findById(bannerId);
+    return banner;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getBannerByUserIdQuery = async (id: string) => {
+  try {
+    const banners = await Banner.find({ authorID: id });
+    return banners;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
