@@ -1,7 +1,7 @@
 import { Router } from "express";
-import addBanner from "./controllers/add-banner";
-import handleGetBannerByProdIdReq from "./controllers/get-banner-byId";
-import handleGetAllBannersReq from "./controllers/get-all-banners";
+import addBanner from "../controllers/add-banner";
+import handleGetBannerByProdIdReq from "../controllers/get-banner-byId";
+import handleGetAllBannersReq from "../controllers/get-all-banners";
 
 const router = Router();
 router.get("/", handleGetAllBannersReq);

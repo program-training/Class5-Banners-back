@@ -1,14 +1,16 @@
-// import jwt from 'jsonwebtoken'
-// import { NextFunction, Request, Response } from "express";
-// import { getUserByID } from "../users/users-DAL";
+import { Request, Response, NextFunction } from "express";
+import { verifyToken } from "./jwt";
 
-// export default async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const token = req.headers.authorization
-//         if (!token) return res.status(403).send('you must include authorization key in the request headers')
-//         const payload = jwt.verify(token)
-//         const user = getUserByID()
-//     } catch (error) {
-        
-//     }
-// }
+export const requireAuth = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const authToken = req.headers["authorization"];
+
+  if (!authToken) return res.status(401).json({ error: "Unauthorized" });
+  if (!verifyToken(authToken)) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  next();
+};

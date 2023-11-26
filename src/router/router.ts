@@ -1,20 +1,20 @@
 import { Request, Response, Router } from "express";
-import usersRouter from '../users/users-router'
-import bannersRouter from '../banners/banners-router'
+import usersRouter from "../users/users-router";
+import bannersRouter from "../banners/router/banners-router";
 import handleNotFound from "../errors/handle-not-found";
 import { getUserByID } from "../users/users-DAL";
 
-const router = Router()
+const router = Router();
 
-router.use('/test-server-up', (req: Request, res: Response) => {
-    res.send('server is up')
-})
-router.use('/t', (req: Request, res: Response) => {
-    getUserByID('333')
-    res.send('running the test')
-})
-router.use('/api/users', usersRouter)
-router.use('/api/banners', bannersRouter)
-router.use(handleNotFound)
+router.use("/test-server-up", (req: Request, res: Response) => {
+  res.send("server is up");
+});
+router.use("/t", (req: Request, res: Response) => {
+  getUserByID("333");
+  res.send("running the test");
+});
+router.use("/api/users", usersRouter);
+router.use("/api/banners", bannersRouter);
+router.use(handleNotFound);
 
-export default router
+export default router;
