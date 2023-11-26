@@ -45,3 +45,15 @@ export const addUser = async (user: NewUserDBI) => {
     return Promise.reject(error);
   }
 };
+
+export const getUserByEmailQuery = async (email: string) => {
+  try {
+    const query = `SELECT * FROM users WHERE email = '${email}' `;
+    console.log(query);
+
+    const userToSend = await client.query(query);
+    return userToSend.rows;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

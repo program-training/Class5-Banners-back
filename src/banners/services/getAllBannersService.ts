@@ -1,4 +1,4 @@
-import { getAllBannersQuery } from "../banners-DAL";
+import { getAllBannersQuery } from "../dal/banners-DAL";
 
 const getAllBannersService = async () => {
   try {

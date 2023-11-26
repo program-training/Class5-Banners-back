@@ -1,5 +1,5 @@
 import { NewBannerI } from "../../interfaces/interfaces";
-import { addBanner } from "../banners-DAL";
+import { addBanner } from "../dal/banners-DAL";
 // import errors from '../../errors/massages'
 
 export default async (banner: NewBannerI) => {

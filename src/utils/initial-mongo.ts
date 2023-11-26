@@ -1,4 +1,4 @@
-import { Banner, getAllBannersQuery } from "../banners/banners-DAL";
+import { Banner, getAllBannersQuery } from "../banners/dal/banners-DAL";
 import { NewBannerI, ShopProductInterface } from "../interfaces/interfaces";
 import getAllProducts from "./getAllProducts";
 

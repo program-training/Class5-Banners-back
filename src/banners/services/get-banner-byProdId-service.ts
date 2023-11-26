@@ -1,4 +1,4 @@
-import { getBannerByProdIDQuery } from "../banners-DAL";
+import { getBannerByProdIDQuery } from "../dal/banners-DAL";
 
 const getBannerByProdIDService = async (prodId: string) => {
   try {

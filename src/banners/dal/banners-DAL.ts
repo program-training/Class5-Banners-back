@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import { BannerI, NewBannerI } from "../interfaces/interfaces";
-import errors from "../errors/errors";
+import { BannerI, NewBannerI } from "../../interfaces/interfaces";
+import errors from "../../errors/errors";
 
 const bannerSchema = new Schema<BannerI>(
     {
