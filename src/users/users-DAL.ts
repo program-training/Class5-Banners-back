@@ -1,11 +1,9 @@
 import { client } from "../utils/connect-to-postgreSQL";
 import { NewUserDBI } from "../interfaces/interfaces";
 import errors from "../errors/errors";
-import { isDigit } from "../utils/verify-input";
 
 export const getUserByID = async (ID: string) => {
   try {
-    if (!isDigit(ID)) throw new Error(errors.invalidID);
     const user = await client.query(`
     SELECT * FROM users WHERE user_id = ${ID}
     `);

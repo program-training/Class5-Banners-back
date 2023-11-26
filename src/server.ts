@@ -42,6 +42,8 @@ const start = async () => {
   await transporter.verify();
   console.log(chalk.green("done"));
 
+  if (!process.env.JWT_SECRET) throw new Error(errors.JWTkeyMissing);
+  
   const port = process.env.PORT;
   if (!port) throw new Error(errors.portMissing);
   app.listen(port, () => {
