@@ -2,7 +2,6 @@ export interface UserBaseI {
     email: string
     username: string
     isAdmin: boolean
-    bannersIDs: string[]
 }
 
 export interface NewUserReqI extends UserBaseI {
@@ -28,6 +27,7 @@ export interface NewBannerReqI {
 
 export interface NewBannerI extends NewBannerReqI {
     authorID: string
+    createdAt: Date
 }
 
 export interface BannerI extends NewBannerI {

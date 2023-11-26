@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { BannerI, NewBannerI } from "../types/types";
-import errors from '../errors/massages'
+import errors from '../errors/errors'
 
 const bannerSchema = new Schema<BannerI>({
     productID: { type: String, required: true, unique: true },
@@ -9,7 +9,8 @@ const bannerSchema = new Schema<BannerI>({
     imageURL: { type: String, required: true },
     note: { type: String, required: true },
     productURL: { type: String, require: true },
-    authorID: { type: String, required: true }
+    authorID: { type: String, required: true },
+    createdAt: { type: Date, required: true, default: Date.now }
 });
 
 const Banner = model('banner', bannerSchema)
@@ -17,7 +18,7 @@ const Banner = model('banner', bannerSchema)
 export const addBanner = async (banner: NewBannerI) => {
     try {
         const newBanner = new Banner(banner)
-        console.log('new baner:', newBanner);
+        console.log('new banner:', newBanner);
         
         const savedBanner = await newBanner.save()
         return savedBanner

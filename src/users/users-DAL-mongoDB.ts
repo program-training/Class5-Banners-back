@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { NewUserDBI, UserI } from "../types/types";
-import errors from '../errors/massages'
+import errors from '../errors/errors'
 
 const userSchema = new Schema<UserI>({
     email: { type: String, require: true, unique: true },

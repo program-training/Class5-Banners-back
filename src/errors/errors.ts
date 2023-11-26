@@ -6,12 +6,13 @@ export default {
     gmailUNmissing: 'GMAIL_USERNAME not found in environment variables',
     gmailPWmissing: 'GMAIL_APP_PASSWORD not found in environment variables',
     incorrectPassword: 'incorrect password',
+    emailExist: 'email already exist',
+    usernameTaken: 'username already taken',
     userNotExist: 'user not exist',
     productIDNotExist: 'productID not exist',
     productNotExist: 'product not exist',
     categoryNotExist: 'category not exist',
     invalidPayload: 'invalid payload',
-    emailExist: 'email already exist',
     invalidToken: 'invalid token',
     bannerExistForProduct: 'banner with this productID already exist'
 }

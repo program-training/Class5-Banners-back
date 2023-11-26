@@ -1,27 +1,39 @@
-import pg from 'pg'
-
 import { client } from '../utils/connect-to-postgreSQL';
 import { NewUserDBI } from '../types/types';
+import errors from '../errors/errors'
 
-client.connect(function(err) {
-  if(err) {
-    return console.error('could not connect to postgres', err);
+export const getUserByID = async (ID: string) => {
+  try {
+    const user = await client.query(`
+    SELECT * FROM users WHERE user_id = ${ID}
+    `)
+    console.log(user);
+    
+    return user
+  } catch (error) {
+    return Promise.reject(error)
   }
-  client.query('SELECT NOW() AS "theTime"', function(err, result) {
-    if(err) {
-      return console.error('error running query', err);
-    }
-    console.log(result.rows[0].theTime);
-    // >> output: 2018-08-23T14:02:57.117Z
-    client.end();
-  });
-});
+}
 
 export const addUser = async (user: NewUserDBI) => {
   try {
-    const newUser = await client.query(`
+    await client.query(`
+    INSERT INTO users (username, password_hash, email)
+    VALUES ('${user.username}', '${user.passwordHash}', '${user.email}')
     `)
-  } catch (error) {
+    console.log('inserted');
     
+    const newUser = await client.query(`
+    SELECT * FROM users WHERE email = '${user.email}'
+    `)
+    return newUser.rows[0]
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('duplicate') && error.message.includes('username')) {
+      return Promise.reject(new Error(errors.usernameTaken))
+    }
+    if (error instanceof Error && error.message.includes('duplicate') && error.message.includes('email')) {
+      return Promise.reject(new Error(errors.emailExist))
+    }
+    return Promise.reject(error)
   }
 }

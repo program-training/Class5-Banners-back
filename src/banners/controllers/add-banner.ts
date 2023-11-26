@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import addBanner from "../services/add-banner-service";
 import handleControllerError from "../../errors/handle-controller-error";
-import errors from '../../errors/massages'
+import errors from '../../errors/errors'
 
 export default async (req: Request, res: Response) => {
     try {

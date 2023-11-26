@@ -8,7 +8,7 @@ export default async () => {
       username TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
-      created_on TIMESTAMP NOT NULL
+      created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
    );`)
   } catch (error) {
     return Promise.reject(error)

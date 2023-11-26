@@ -4,7 +4,7 @@ import chalk from 'chalk'
 
 import { transporter } from './utils/send-email'
 import router from './router/router'
-import errors from './errors/massages'
+import errors from './errors/errors'
 import connectToPostgreSQL from './utils/connect-to-postgreSQL'
 import connectToMongoDB from './utils/connect-to-mongoDB'
 import morganLogger from './logger/morgan-logger'

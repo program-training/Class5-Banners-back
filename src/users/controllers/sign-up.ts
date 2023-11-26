@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import signUp from "../services/sign-up";
-import errors from '../../errors/massages'
+import errors from '../../errors/errors'
 import handleControllerError from "../../errors/handle-controller-error";
 import errorsLogger from "../../errors/errors-logger";
 
@@ -38,6 +38,9 @@ export default async (req: Request, res: Response) => {
     } catch (error) {
         if (error instanceof Error && error.message === errors.emailExist) {
             return res.status(409).send('email already exist')
+        }
+        if (error instanceof Error && error.message === errors.usernameTaken) {
+            return res.status(400).send('username already taken')
         }
         errorsLogger(error)
         handleControllerError(req, res, error)
