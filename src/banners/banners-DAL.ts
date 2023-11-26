@@ -53,9 +53,12 @@ export const getBannerByProdIDQuery = async (prodId: string) => {
         return Promise.reject(error);
     }
 };
-export const updateBanner = async (bannerId: string) => {
+export const updateBanner = async (bannerId: string, properties: Partial<NewBannerI>) => {
     try {
-        Banner.findByIdAndUpdate(bannerId);
+        const updatedBanner = await Banner.findByIdAndUpdate(bannerId, properties, { new: true });
+        console.log(updatedBanner);
+    
+        return updatedBanner
     } catch (error) {
         return Promise.reject(error);
     }
