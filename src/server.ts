@@ -22,7 +22,7 @@ app.use(router);
 const start = async () => {
   console.log(chalk.blue("connecting to mongoBD..."));
   if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
-  connectToMongoDB(process.env.MONGODB_URI);
+  await connectToMongoDB(process.env.MONGODB_URI);
   console.log(chalk.green("done"));
 
   console.log(chalk.blue("connecting to postgreSQL..."));
