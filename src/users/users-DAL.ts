@@ -1,15 +1,16 @@
 import { client } from '../utils/connect-to-postgreSQL';
 import { NewUserDBI } from '../types/types';
 import errors from '../errors/errors'
+import { isDigit } from '../utils/verify-input';
 
 export const getUserByID = async (ID: string) => {
   try {
+    if (!isDigit(ID)) throw new Error(errors.invalidID);
     const user = await client.query(`
     SELECT * FROM users WHERE user_id = ${ID}
     `)
-    console.log(user);
-    
-    return user
+    if (!user.rows[0]) throw new Error(errors.userNotExist);
+    return user.rows[0]
   } catch (error) {
     return Promise.reject(error)
   }

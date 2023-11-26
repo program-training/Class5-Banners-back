@@ -10,7 +10,7 @@ router.use('/test-server-up', (req: Request, res: Response) => {
     res.send('server is up')
 })
 router.use('/t', (req: Request, res: Response) => {
-    getUserByID('1')
+    getUserByID('333')
     res.send('running the test')
 })
 router.use('/api/users', usersRouter)

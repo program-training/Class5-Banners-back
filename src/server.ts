@@ -22,7 +22,7 @@ const start = async () => {
 
     console.log(chalk.blue('connecting to mongoBD...'));
     if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
-    connectToMongoDB(process.env.MONGODB_URI)
+    await connectToMongoDB(process.env.MONGODB_URI)
     console.log(chalk.green('done'));
     
     console.log(chalk.blue('connecting to postgreSQL...'))
@@ -39,6 +39,8 @@ const start = async () => {
     if (!process.env.GMAIL_APP_PASSWORD) throw new Error(errors.gmailPWmissing);
     await transporter.verify()
     console.log(chalk.green('done'));
+
+    if (!process.env.JWT_SECRET) throw new Error(errors.JWTkeyMissing);
 
     const port = process.env.PORT
     if (!port) throw new Error(errors.portMissing);
