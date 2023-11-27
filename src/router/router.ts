@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import usersRouter from "../users/users-router";
+import usersRouter from "../users/routes/users-router";
 import bannersRouter from "../banners/router/banners-router";
 import handleNotFound from "../errors/handle-not-found";
 

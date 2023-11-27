@@ -9,11 +9,10 @@ export const loginService = async (user: UserInterface) => {
     const userCheck = await getUserByEmailQuery(user.email);
     if (!userCheck.length)
       throw new Error("user does not exist! please register");
-    console.log(user.password, userCheck[0]);
 
     const passwordCheck = comparePassword(
       user.password as string,
-      userCheck[0].password_hash
+      userCheck[0].password
     );
     if (!userCheck.length || !passwordCheck)
       throw new Error("Invalid email or password, please try again");
