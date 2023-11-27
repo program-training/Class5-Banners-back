@@ -11,6 +11,7 @@ import morganLogger from "./logger/morgan-logger";
 import customCors from "./cors/custom-cors";
 import initialPostgreSQL from "./utils/initial-postgreSQL";
 import initialMongo from "./utils/initial-mongo";
+import axios from "axios";
 
 const app = express();
 
@@ -20,6 +21,18 @@ app.use(json());
 app.use(router);
 
 const start = async () => {
+
+  const port = process.env.PORT;
+  if (!port) throw new Error(errors.portMissing);
+  app.listen(port, () => {
+    console.log(chalk.green(`server is running on port ${port}`));
+  });
+
+  console.log(chalk.blue('testing products server...'))
+  if (!process.env.ALL_PRODUCT_URL) throw new Error(errors.productsURLmissing);
+  await axios.get(process.env.ALL_PRODUCT_URL)
+  console.log(chalk.green('done'));
+  
   console.log(chalk.blue("connecting to mongoBD..."));
   if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
   await connectToMongoDB(process.env.MONGODB_URI);
@@ -43,12 +56,6 @@ const start = async () => {
   console.log(chalk.green("done"));
 
   if (!process.env.JWT_SECRET) throw new Error(errors.JWTkeyMissing);
-  
-  const port = process.env.PORT;
-  if (!port) throw new Error(errors.portMissing);
-  app.listen(port, () => {
-    console.log(chalk.green(`server is running on port ${port}`));
-  });
 };
 
 start();
