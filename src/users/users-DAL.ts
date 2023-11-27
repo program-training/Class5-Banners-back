@@ -8,7 +8,7 @@ import { UserInterface } from "./interface/userInterface";
 export const getUserByID = async (ID: string) => {
   try {
     const user = await client.query(`
-    SELECT * FROM users WHERE user_id = ${ID}
+    SELECT * FROM users WHERE user_id = '${ID}'
     `);
     console.log(user);
 

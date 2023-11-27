@@ -6,7 +6,7 @@ const handleGetUser = async (req: Request, res: Response) => {
   try {
     const { authorization } = req.headers;
     const user = await getUserService(authorization as string);
-    return res.send(user);
+    return res.send(user[0]);
   } catch (error) {
     handleError(res, error);
   }

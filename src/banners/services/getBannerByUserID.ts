@@ -7,7 +7,7 @@ const getBannerByUserService = async (token: string) => {
 
     const banners = await getBannerByUserIdQuery(user_id);
 
-    if (!banners.length) throw new Error("no banner found");
+    // if (!banners.length) throw new Error("no banner found");
     return banners;
   } catch (error) {
     return Promise.reject(error);

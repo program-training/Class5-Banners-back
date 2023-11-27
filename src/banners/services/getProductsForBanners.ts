@@ -10,7 +10,7 @@ const getProductForBanners = async () => {
     const normalizedProducts = filteredProduct.map(pr => {
       return {...pr, title: pr.name}
     })
-    return filteredProduct;
+    return normalizedProducts;
   } catch (error) {
     return Promise.reject(error);
   }
