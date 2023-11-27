@@ -54,7 +54,8 @@ export const getBannerByProdIDQuery = async (prodId: string) => {
     return Promise.reject(error);
   }
 };
-export const updateBanner = async (
+
+export const updateBannerQuery = async (
   bannerId: string,
   properties: Partial<NewBannerI>
 ) => {
@@ -62,8 +63,6 @@ export const updateBanner = async (
     const updatedBanner = await Banner.findByIdAndUpdate(bannerId, properties, {
       new: true,
     });
-    console.log(updatedBanner);
-
     return updatedBanner;
   } catch (error) {
     return Promise.reject(error);
@@ -83,6 +82,15 @@ export const getBannerByUserIdQuery = async (id: string) => {
   try {
     const banners = await Banner.find({ authorID: id });
     return banners;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const deleteBannerQuery = async (id: string) => {
+  try {
+    const query = await Banner.findByIdAndDelete(id);
+    return query;
   } catch (error) {
     return Promise.reject(error);
   }
