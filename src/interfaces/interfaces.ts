@@ -9,7 +9,7 @@ export interface NewUserReqI extends UserBaseI {
 }
 
 export interface NewUserDBI extends UserBaseI {
-  passwordHash: string;
+  password: string;
 }
 
 export interface UserI extends NewUserDBI {

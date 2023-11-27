@@ -6,7 +6,7 @@ const userSchema = new Schema<UserI>({
   email: { type: String, require: true, unique: true },
   username: { type: String, require: true },
   isAdmin: { type: Boolean, require: true },
-  passwordHash: { type: String, require: true },
+  password: { type: String, require: true },
 });
 
 const User = model("user", userSchema);
