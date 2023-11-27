@@ -2,17 +2,18 @@ import { Router } from "express";
 import addBanner from "../controllers/add-banner";
 import handleGetBannerByIdReq from "../controllers/get-banner-byId";
 import handleGetAllBannersReq from "../controllers/get-all-banners";
-import handleGetBannerByUserIdReq from "../controllers/getBannerByUSerID";
+import handleGetBannerByUserReq from "../controllers/getBannerByUSerID";
 import handleDeleteBannerReq from "../controllers/delete-banner";
 import handleEditBanner from "../controllers/edit-banner";
+import { requireAuth } from "../../middleware/authorization";
 
 const router = Router();
 
 router.get("/", handleGetAllBannersReq);
-router.get("/mybanners/:userId", handleGetBannerByUserIdReq);
+router.get("/mybanners", requireAuth, handleGetBannerByUserReq);
 router.get("/:id", handleGetBannerByIdReq);
-router.post("/new", addBanner);
-router.put("/:id", handleEditBanner);
-router.delete("/:id", handleDeleteBannerReq);
+router.post("/new", requireAuth, addBanner);
+router.put("/:id", requireAuth, handleEditBanner);
+router.delete("/:id", requireAuth, handleDeleteBannerReq);
 
 export default router;
