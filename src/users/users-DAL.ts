@@ -1,7 +1,7 @@
 import { client } from "../utils/connect-to-postgreSQL";
 import { NewUserDBI } from "../interfaces/interfaces";
 import errors from "../errors/errors";
-import { updateQGenerator } from "./helpers/queryGenerators";
+import { insertQGenerator, updateQGenerator } from "./helpers/queryGenerators";
 import { getArrOfObjEntries } from "./helpers/getArrOfObjEntries";
 import { UserInterface } from "./interface/userInterface";
 
@@ -12,7 +12,7 @@ export const getUserByID = async (ID: string) => {
     `);
     console.log(user);
 
-    return user;
+    return user.rows;
   } catch (error) {
     return Promise.reject(error);
   }
@@ -20,15 +20,13 @@ export const getUserByID = async (ID: string) => {
 
 export const addUser = async (user: NewUserDBI) => {
   try {
-    await client.query(`
-    INSERT INTO users (username, password, email)
-    VALUES ('${user.username}', '${user.password}', '${user.email}')
-    `);
+    const { keys, values } = getArrOfObjEntries(user);
+
+    const query = insertQGenerator({ keys, values });
+    const newUser = await client.query(query);
+
     console.log("inserted");
 
-    const newUser = await client.query(`
-    SELECT * FROM users WHERE email = '${user.email}'
-    `);
     return newUser.rows[0];
   } catch (error) {
     if (
@@ -58,14 +56,23 @@ export const getUserByEmailQuery = async (email: string) => {
     return Promise.reject(error);
   }
 };
+
 export const updateUserQuery = async (id: string, user: UserInterface) => {
   try {
     const { keys, values } = getArrOfObjEntries(user);
     const query = updateQGenerator(id, { keys, values });
-    console.log(query);
-
     const updatedUser = await client.query(query);
     return updatedUser.rows;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const deleteUserQuery = async (id: string) => {
+  try {
+    const query = `DELETE FROM users WHERE user_id = ${id} RETURNING *`;
+    const deletedUser = await client.query(query);
+    return deletedUser.rows;
   } catch (error) {
     return Promise.reject(error);
   }
