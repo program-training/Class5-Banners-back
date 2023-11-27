@@ -49,8 +49,6 @@ export const addUser = async (user: NewUserDBI) => {
 export const getUserByEmailQuery = async (email: string) => {
   try {
     const query = `SELECT * FROM users WHERE email = '${email}' `;
-    console.log(query);
-
     const userToSend = await client.query(query);
     return userToSend.rows;
   } catch (error) {
