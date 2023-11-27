@@ -6,6 +6,7 @@ import errors from "../../errors/errors";
 export default async (req: Request, res: Response) => {
   try {
     const banner = req.body.banner;
+    const { authorization } = req.headers;
     if (
       !(
         banner &&
@@ -32,7 +33,7 @@ export default async (req: Request, res: Response) => {
     banner.note ||= "";
     // get the user from token
     banner.authorID = "some id";
-    const newBanner = await addBanner(banner);
+    const newBanner = await addBanner(banner, authorization as string);
     res.send(newBanner);
   } catch (error) {
     if (
