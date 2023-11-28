@@ -7,7 +7,10 @@ const getProductForBanners = async () => {
     const products = await getAllProducts();
     const banners = await getAllBannersQuery();
     const filteredProduct = getUnBanneredProducts(products, banners);
-    return filteredProduct;
+    const normalizedProducts = filteredProduct.map(pr => {
+      return {...pr, title: pr.name}
+    })
+    return normalizedProducts;
   } catch (error) {
     return Promise.reject(error);
   }

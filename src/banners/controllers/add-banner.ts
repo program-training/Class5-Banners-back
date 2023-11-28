@@ -13,10 +13,11 @@ export default async (req: Request, res: Response) => {
         typeof banner.productID === "string" &&
         typeof banner.title === "string" &&
         typeof banner.description === "string" &&
-        typeof banner.imageURL === "string" &&
-        typeof banner.category === "string"
+        typeof banner.imageURL === "string"
       )
     ) {
+      console.log('req:', req.body.banner);
+      
       return res.status(400).send({
         addBannerRequestsBodyStructure: {
           banner: {
@@ -25,7 +26,6 @@ export default async (req: Request, res: Response) => {
             description: "string",
             imageURL: "string",
             note: "optional - string",
-            category: "string",
           },
         },
       });
