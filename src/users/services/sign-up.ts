@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { NewUserReqI } from "../../interfaces/interfaces";
-import { addUser } from "../users-DAL";
+import { addUser } from "../dal/users-DAL";
 
 const saltRounds = 10;
 

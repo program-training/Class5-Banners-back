@@ -1,7 +1,6 @@
 import express, { json } from "express";
 import "dotenv/config";
 import chalk from "chalk";
-
 import { transporter } from "./utils/send-email";
 import router from "./router/router";
 import errors from "./errors/errors";
@@ -21,18 +20,17 @@ app.use(json());
 app.use(router);
 
 const start = async () => {
-
   const port = process.env.PORT;
   if (!port) throw new Error(errors.portMissing);
   app.listen(port, () => {
     console.log(chalk.green(`server is running on port ${port}`));
   });
 
-  console.log(chalk.blue('testing products server...'))
+  console.log(chalk.blue("testing products server..."));
   if (!process.env.ALL_PRODUCT_URL) throw new Error(errors.productsURLmissing);
-  await axios.get(process.env.ALL_PRODUCT_URL)
-  console.log(chalk.green('products server is up'));
-  
+  await axios.get(process.env.ALL_PRODUCT_URL);
+  console.log(chalk.green("products server is up"));
+
   console.log(chalk.blue("connecting to mongoBD..."));
   if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
   await connectToMongoDB(process.env.MONGODB_URI);

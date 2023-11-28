@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { UserInterface } from "../interface/userInterface";
-import { emailRegex } from "./regex";
+import { UserInterface } from "../users/interface/userInterface";
+import { emailRegex } from "../users/utils/regex";
 
 const userValidation = (user: UserInterface) => {
   const schema = Joi.object({

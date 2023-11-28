@@ -10,9 +10,9 @@ const router = Router();
 
 router.post("/sign-up", signUp);
 router.post("/login", handleLogInReq);
+router.post("/reset");
 router.get("/", requireAuth, handleGetUser);
 router.put("/", requireAuth, handleUpdateUser);
-router.post("/reset");
 router.delete("/", requireAuth, handleDeleteUserReq);
 
 export default router;

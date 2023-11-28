@@ -1,6 +1,6 @@
 import { UserI } from "../../interfaces/interfaces";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { updateUserQuery } from "../users-DAL";
+import { updateUserQuery } from "../dal/users-DAL";
 import { generateUserPassword } from "../helpers/passwordBcrypt";
 
 const updatedUserService = async (token: string, userData: UserI) => {

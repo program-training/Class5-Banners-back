@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { deleteUserQuery } from "../users-DAL";
+import { deleteUserQuery } from "../dal/users-DAL";
 const deleteUserService = async (token: string) => {
   try {
     const { user_id } = jwt.decode(token) as JwtPayload;
