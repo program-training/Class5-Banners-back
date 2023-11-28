@@ -9,6 +9,7 @@ const updatedUserService = async (token: string, userData: UserI) => {
     const existingUser = await getUserByID(user_id)
     const password = userData.password ? generateUserPassword(userData.password) : existingUser[0].password
     const combined = { email: userData.email, isAdmin: userData.isAdmin, username: userData.username, password }
+    console.log('combined user:',  combined);
     const updatedUser = await updateUserQuery(user_id, combined);
     return updatedUser;
   } catch (error) {
