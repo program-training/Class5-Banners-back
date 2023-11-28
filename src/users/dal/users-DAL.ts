@@ -1,9 +1,9 @@
-import { client } from "../utils/connect-to-postgreSQL";
-import { NewUserDBI } from "../interfaces/interfaces";
-import errors from "../errors/errors";
-import { insertQGenerator, updateQGenerator } from "./helpers/queryGenerators";
-import { getArrOfObjEntries } from "./helpers/getArrOfObjEntries";
-import { UserInterface } from "./interface/userInterface";
+import { client } from "../../utils/connect-to-postgreSQL";
+import { NewUserDBI } from "../../interfaces/interfaces";
+import errors from "../../errors/errors";
+import { insertQGenerator, updateQGenerator } from "../helpers/queryGenerators";
+import { getArrOfObjEntries } from "../helpers/getArrOfObjEntries";
+import { UserInterface } from "../interface/userInterface";
 
 export const getUserByID = async (ID: string) => {
   try {

@@ -13,7 +13,7 @@ router.use("/t", (req: Request, res: Response) => {
   res.send("running the test");
 });
 router.use("/api/users", usersRouter);
-router.use("/api/banners", requireAuth, bannersRouter);
+router.use("/api/banners", bannersRouter);
 router.use(handleNotFound);
 
 export default router;

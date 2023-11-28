@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { getUserByEmailQuery } from "../users-DAL";
+import { getUserByEmailQuery } from "../dal/users-DAL";
 import { UserInterface } from "../interface/userInterface";
 
 const getUserService = async (token: string) => {

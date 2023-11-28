@@ -1,7 +1,7 @@
-import { generateToken } from "../../middleware/jwt";
+import { generateToken } from "../../models/jwt";
 import { comparePassword } from "../helpers/passwordBcrypt";
 import { UserInterface } from "../interface/userInterface";
-import { getUserByEmailQuery } from "../users-DAL";
+import { getUserByEmailQuery } from "../dal/users-DAL";
 
 export const loginService = async (user: UserInterface) => {
   try {

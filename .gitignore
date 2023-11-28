@@ -1,5 +1,6 @@
 node_modules
 DIST
+coverage
 todo.md
 .env
 errors-log
