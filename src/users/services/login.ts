@@ -17,8 +17,8 @@ export const loginService = async (user: UserInterface) => {
     if (!userCheck.length || !passwordCheck)
       throw new Error("Invalid email or password, please try again");
 
-    const { email, user_id } = userCheck[0];
-    const token = generateToken(user_id.toString(), email as string);
+    const { isAdmin, user_id, username } = userCheck[0];
+    const token = generateToken(user_id.toString(), isAdmin, username);
 
     return token;
   } catch (error) {

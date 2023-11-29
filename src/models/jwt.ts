@@ -3,9 +3,13 @@ import "dotenv/config";
 
 const KEY = process.env.JWT_SECRET;
 
-export const generateToken = (user_id: string, email: string) => {
+export const generateToken = (
+  user_id: string,
+  isAdmin: boolean,
+  username: string
+) => {
   if (!KEY) throw new Error("key is not defined");
-  const token = jwt.sign({ user_id, email }, KEY);
+  const token = jwt.sign({ user_id, isAdmin, username }, KEY);
   return token;
 };
 
