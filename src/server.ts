@@ -1,5 +1,5 @@
-import express, { json } from "express";
 import "dotenv/config";
+import express, { json } from "express";
 import chalk from "chalk";
 import { transporter } from "./utils/send-email";
 import router from "./router/router";
