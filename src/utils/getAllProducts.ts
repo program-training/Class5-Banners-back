@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://erp-server-v2.onrender.com/api/shop_inventory?searchText=";
+const URL = process.env.ERP_BASE_URL + "/api/shop_inventory?searchText=";
 const getAllProducts = async () => {
   try {
     const products = await axios.get(URL);

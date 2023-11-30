@@ -19,7 +19,7 @@ app.use(customCors);
 app.use(json());
 app.use(router);
 
-const start = async () => {
+export const start = async () => {
   const port = process.env.PORT;
   if (!port) throw new Error(errors.portMissing);
   app.listen(port, () => {
@@ -27,8 +27,8 @@ const start = async () => {
   });
 
   console.log(chalk.blue("testing products server..."));
-  if (!process.env.ALL_PRODUCT_URL) throw new Error(errors.productsURLmissing);
-  await axios.get(process.env.ALL_PRODUCT_URL);
+  if (!process.env.ERP_BASE_URL) throw new Error(errors.productsURLmissing);
+  await axios.get(process.env.ERP_BASE_URL + '/api/shop_inventory?searchText=');
   console.log(chalk.green("products server is up"));
 
   console.log(chalk.blue("connecting to mongoBD..."));
@@ -53,6 +53,8 @@ const start = async () => {
   await transporter.verify();
   console.log(chalk.green("gmail verification succeed"));
 
+  console.log(chalk.green('dependencies test passed'));
+  
   if (!process.env.JWT_SECRET) throw new Error(errors.JWTkeyMissing);
 };
 

@@ -3,7 +3,7 @@ export default {
     mongoDBURImissing: 'MONGODB_URI not found in environment variables',
     postgreSQLconStrMissing: 'POSTGRESQL_CONNECTION_STRING not found in environment variables',
     JWTkeyMissing: "JWT_SECRET not found in environment variables",
-    productsURLmissing: 'ALL_PRODUCT_URL not found in environment variables',
+    productsURLmissing: 'ERP_BASE_URL not found in environment variables',
     gmailUNmissing: 'GMAIL_USERNAME not found in environment variables',
     gmailPWmissing: 'GMAIL_APP_PASSWORD not found in environment variables',
     incorrectPassword: 'incorrect password',
