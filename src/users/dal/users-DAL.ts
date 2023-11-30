@@ -47,6 +47,15 @@ export const addUser = async (user: NewUserDBI) => {
   }
 };
 
+export const getUserByUsernameQuery = async (username: string) => {
+  try {
+    const query = `SELECT * FROM users WHERE username = '${username}' `;
+    const userToSend = await client.query(query);
+    return userToSend.rows;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 export const getUserByEmailQuery = async (email: string) => {
   try {
     const query = `SELECT * FROM users WHERE email = '${email}' `;
