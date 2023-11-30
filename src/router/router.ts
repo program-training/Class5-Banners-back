@@ -12,8 +12,8 @@ router.use("/test-server-up", (req: Request, res: Response) => {
 router.use("/t", (req: Request, res: Response) => {
   res.send("running the test");
 });
-router.use("/api/users", usersRouter);
-router.use("/api/banners", bannersRouter);
+router.use("/users", usersRouter);
+router.use("/banners", bannersRouter);
 router.use(handleNotFound);
 
 export default router;
