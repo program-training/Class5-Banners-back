@@ -13,7 +13,7 @@ const router = Router();
 router.get("/", handleGetAllBannersReq);
 router.get("/products", requireAuth, handleGetUnBanneredProducts);
 router.get("/mybanners", requireAuth, handleGetBannerByUserReq);
-router.get("/:id", requireAuth, handleGetBannerByIdReq);
+router.get("/:id", handleGetBannerByIdReq);
 router.post("/new", requireAuth, addBanner);
 router.put("/:id", requireAuth, handleEditBanner);
 router.delete("/:id", requireAuth, handleDeleteBannerReq);
