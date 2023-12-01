@@ -15,7 +15,7 @@ const initialMongo = async () => {
         category: product.category,
         description: product.description,
         imageURL: product.imageUrl,
-        productURL: `https://erp-server-v2.onrender.com/api/shop_inventory/${product.id}`,
+        productURL: `https://erp-server-v2.onrender.com/shop_inventory/${product.id}`,
         authorID: "1",
         note: "",
       });

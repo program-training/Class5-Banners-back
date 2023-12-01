@@ -1,5 +1,4 @@
 import 'dotenv/config'
-await (new Promise((res, rej) => res(0)))
 import connectToPostgreSQL, { client } from './connect-to-postgreSQL'
 
 describe('initial connection to postgreSQL', () => {
@@ -7,6 +6,8 @@ describe('initial connection to postgreSQL', () => {
   it('connects to postgres', async () => {
     await connectToPostgreSQL()
 
-    expect(client.query('SELECT 1')).not.toThrow()
+    const results = await client.query('SELECT 1')
+    
+    expect(results.rows[0]['?column?']).toBe(1)
   })
 })

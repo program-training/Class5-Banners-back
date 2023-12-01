@@ -12,7 +12,7 @@ import initialPostgreSQL from "./utils/initial-postgreSQL";
 import initialMongo from "./utils/initial-mongo";
 import axios from "axios";
 
-const app = express();
+export const app = express();
 
 app.use(morganLogger);
 app.use(customCors);
@@ -28,7 +28,7 @@ export const start = async () => {
 
   console.log(chalk.blue("testing products server..."));
   if (!process.env.ERP_BASE_URL) throw new Error(errors.productsURLmissing);
-  await axios.get(process.env.ERP_BASE_URL + '/api/shop_inventory?searchText=');
+  await axios.get(process.env.ERP_BASE_URL + '/shop_inventory?searchText=');
   console.log(chalk.green("products server is up"));
 
   console.log(chalk.blue("connecting to mongoBD..."));

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getAllProducts = async () => {
-  const URL = process.env.ERP_BASE_URL + "/api/shop_inventory?searchText=";
+  const URL = process.env.ERP_BASE_URL + "/shop_inventory?searchText=";
   try {
     console.log(URL);
     
