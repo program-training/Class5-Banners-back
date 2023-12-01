@@ -5,7 +5,7 @@ describe('Server', () => {
 
   it('responds to GET /', async () => {
     await start()
-    const res = await request(app).get('').expect
+    const res = await request(app).get('')
     expect(res.status).toEqual(200);
   });
 

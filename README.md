@@ -13,15 +13,15 @@ To Run The Server you must have the following in environment variables or .env f
 Test if server is up:
 
 * GET /test-server-up
-  response "server is up" 
+  response "server is up"
 
 Users:
 
-* POST /api/users/sign-up
+* POST /users/sign-up
   body: user: { email: string, password: string, username: string, isAdmin: boolean }
 
 Banners
 
-* POST /api/banners/new
+* POST /banners/new
   body: banner: { productID: string,  ?}
   header: ?
