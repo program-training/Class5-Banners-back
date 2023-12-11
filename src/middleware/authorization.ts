@@ -1,16 +1,31 @@
-import { Request, Response, NextFunction } from "express";
+import { GraphQLError } from "graphql";
 import { verifyToken } from "../models/jwt";
+import { decode } from "jsonwebtoken";
+import { StandaloneServerContextFunctionArgument } from "@apollo/server/dist/esm/standalone";
+import { BaseContext } from "@apollo/server";
+import { Request } from "express";
 
-export const requireAuth = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const authToken = req.headers["authorization"];
+export const authorizationMiddleWare = ({
+  req,
+}: StandaloneServerContextFunctionArgument): Promise<BaseContext> => {
+  if (
+    (req as Request).body.operationName === "loginService" ||
+    (req as Request).body.operationName === "Signup" ||
+    (req as Request).body.operationName === "IntrospectionQuery" ||
+    !req.headers.origin
+  )
+    return null as unknown as Promise<BaseContext>;
+  const authToken = req.headers["authorization"] || "";
 
-  if (!authToken) return res.status(401).json({ error: "Unauthorized" });
+  const tokenPayload = decode(authToken);
   if (!verifyToken(authToken)) {
-    return res.status(401).json({ error: "Unauthorized" });
+    throw new GraphQLError("User is not authenticated", {
+      extensions: {
+        code: "UNAUTHENTICATED",
+        http: { status: 401 },
+      },
+    });
   }
-  next();
+
+  return tokenPayload as Promise<BaseContext>;
 };

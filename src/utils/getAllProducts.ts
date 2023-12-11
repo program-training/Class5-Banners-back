@@ -1,10 +1,8 @@
 import axios from "axios";
 
 const getAllProducts = async () => {
-  const URL = process.env.ERP_BASE_URL + "/shop_inventory?searchText=";
+  const URL = process.env.ERP_BASE_URL || "";
   try {
-    console.log(URL);
-    
     const products = await axios.get(URL);
     return products.data;
   } catch (error) {

@@ -10,8 +10,6 @@ export const getUserByID = async (ID: string) => {
     const user = await client.query(`
     SELECT * FROM users WHERE user_id = '${ID}'
     `);
-    console.log(user);
-
     return user.rows;
   } catch (error) {
     return Promise.reject(error);
@@ -24,10 +22,7 @@ export const addUser = async (user: NewUserDBI) => {
 
     const query = insertQGenerator({ keys, values });
     const newUser = await client.query(query);
-
-    console.log("inserted");
-
-    return newUser.rows[0];
+    return newUser.rows;
   } catch (error) {
     if (
       error instanceof Error &&
@@ -73,13 +68,20 @@ export const updateUserQuery = async (id: string, user: UserInterface) => {
     const updatedUser = await client.query(query);
     return updatedUser.rows;
   } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes("duplicate") &&
+      error.message.includes("username")
+    ) {
+      return Promise.reject(new Error(errors.usernameTaken));
+    }
     return Promise.reject(error);
   }
 };
 
 export const deleteUserQuery = async (id: string) => {
   try {
-    const query = `DELETE FROM users WHERE user_id = ${id} RETURNING *`;
+    const query = `DELETE FROM users WHERE user_id = '${id}' RETURNING *`;
     const deletedUser = await client.query(query);
     return deletedUser.rows;
   } catch (error) {
