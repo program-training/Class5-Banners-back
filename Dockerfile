@@ -3,7 +3,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 RUN npm install -D typescript
-COPY . .
+COPY ./src ./src
+COPY package-lock.json ./
+COPY tsconfig.json ./
 RUN npm run build
 FROM node:18-alpine
 WORKDIR /app
