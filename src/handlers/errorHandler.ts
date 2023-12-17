@@ -1,4 +1,4 @@
-import { Response, Request } from "express";
+import { Response, Request, NextFunction } from "express";
 import chalk from "chalk";
 
 export const handleError = <T>(
@@ -20,8 +20,10 @@ export const handleJsonfileError = <T>(error: T) => {
 export const handleServerError = (
   error: Error,
   req: Request,
-  res: Response
+  res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  next: NextFunction
 ) => {
   console.log(chalk.redBright(error.message));
-  res.status(500).send(error.message);
+  res.send(500).send(error.message);
 };

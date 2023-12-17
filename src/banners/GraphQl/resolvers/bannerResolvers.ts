@@ -9,7 +9,6 @@ import {
 import {
   deleteBannerQuery,
   getAllBannersQuery,
-  getBannerByUserIdQuery,
   updateBannerQuery,
 } from "../../dal/bannersDal";
 import getUnBanneredProducts from "../../helpers/getUnbanneredProducts";

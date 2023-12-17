@@ -1,5 +1,7 @@
 import { createClient } from "redis";
 
-const redisClient = createClient().on("error", (error) => console.log(error));
+const redisClient = createClient().on("error", (error: unknown) =>
+  console.log(error)
+);
 
 export default redisClient;
