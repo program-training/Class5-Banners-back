@@ -10,6 +10,7 @@ import axios from "axios";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import server from "./graphql/apolloServer";
 import { authorizationMiddleWare } from "./middleware/authorization";
+import redisClient from "./utils/connectToRedis";
 
 const PORT = process.env.PORT;
 
@@ -29,6 +30,10 @@ export const start = async () => {
     if (!process.env.ERP_BASE_URL) throw new Error(errors.productsURLmissing);
     await axios.get(process.env.ERP_BASE_URL);
     console.log(chalk.green("products server is up"));
+
+    console.log(chalk.blue("connecting to redis..."));
+    await redisClient.connect();
+    redisClient.isReady && console.log(chalk.green("connected to redis"));
 
     console.log(chalk.blue("connecting to mongoBD..."));
     if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);

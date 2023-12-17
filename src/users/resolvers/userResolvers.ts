@@ -22,8 +22,7 @@ export const loginService = async (_: any, { user }: User) => {
   try {
     if (!user.email || !user.password) throw new Error("invalid details");
     const userCheck = await getUserByEmailQuery(user.email);
-    if (!userCheck.length)
-      throw new Error("user does not exist! please register");
+    if (!userCheck) throw new Error("user does not exist! please register");
 
     const passwordCheck = comparePassword(
       user.password as string,
@@ -94,7 +93,7 @@ export const updatedUserService = async (
     const existingUser = await getUserByID(user_id);
     const password = userData.password
       ? generateUserPassword(userData.password)
-      : existingUser[0].password;
+      : existingUser.password;
     const combined = {
       email: userData.email,
       isAdmin: userData.isAdmin,
