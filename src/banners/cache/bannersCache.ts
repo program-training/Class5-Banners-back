@@ -8,7 +8,6 @@ import {
   getBannerByUserIdQuery,
 } from "../dal/bannersDal";
 import { NewBannerI } from "../../interfaces/interfaces";
-import { json } from "body-parser";
 
 export const getAllBannersFromCache = async () => {
   try {
@@ -21,6 +20,7 @@ export const getAllBannersFromCache = async () => {
         ".",
         banners as unknown as RedisJSON
       );
+      await redisClient.expire("banners", 36000);
     }
     return banners;
   } catch (error) {
