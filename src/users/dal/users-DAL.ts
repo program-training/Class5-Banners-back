@@ -10,7 +10,7 @@ export const getUserByID = async (ID: string) => {
     const user = await client.query(`
     SELECT * FROM users WHERE user_id = '${ID}'
     `);
-    return user.rows;
+    return user.rows[0] as UserInterface;
   } catch (error) {
     return Promise.reject(error);
   }

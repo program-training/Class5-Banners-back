@@ -3,4 +3,5 @@ export interface UserInterface {
   email: string;
   password: string;
   isAdmin: boolean;
+  user_id?: string;
 }

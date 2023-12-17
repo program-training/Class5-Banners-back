@@ -1,10 +1,14 @@
 import getAllProducts from "../../../utils/getAllProducts";
 import {
-  addBanner,
+  addBannerToCache,
+  getAllBannersFromCache,
+  getBannerByBannerIDFromCache,
+  getBannerByProdIDFromCache,
+  getBannerByUserIdFromCache,
+} from "../../cache/bannersCache";
+import {
   deleteBannerQuery,
   getAllBannersQuery,
-  getBannerByBannerIDQuery,
-  getBannerByProdIDQuery,
   getBannerByUserIdQuery,
   updateBannerQuery,
 } from "../../dal/bannersDal";
@@ -18,7 +22,7 @@ export const addBannerService = async (
 ) => {
   try {
     banner.authorID = user_id;
-    const newBanner = await addBanner(banner);
+    const newBanner = await addBannerToCache(banner);
     return newBanner;
   } catch (error) {
     return Promise.reject(error);
@@ -40,8 +44,8 @@ export const getBannerByProdIDService = async (
   { productID }: Args
 ) => {
   try {
-    const banner = await getBannerByProdIDQuery(productID);
-    if (!banner.length) throw new Error("no banner found");
+    const banner = await getBannerByProdIDFromCache(productID);
+    if (!banner) throw new Error("no banner found");
     return banner;
   } catch (error) {
     return Promise.reject(error);
@@ -50,8 +54,8 @@ export const getBannerByProdIDService = async (
 
 export const getAllBannersService = async () => {
   try {
-    const banners = await getAllBannersQuery();
-    if (!banners.length) throw new Error("no banners found");
+    const banners = await getAllBannersFromCache();
+    if (!banners) throw new Error("no banners found");
     return banners;
   } catch (error) {
     return Promise.reject(error);
@@ -63,7 +67,7 @@ export const getBannerByBannerIDService = async (
   { bannerId }: Args
 ) => {
   try {
-    const banner = await getBannerByBannerIDQuery(bannerId);
+    const banner = await getBannerByBannerIDFromCache(bannerId);
     if (!banner) throw new Error("banner does not exist");
     return banner;
   } catch (error) {
@@ -77,9 +81,9 @@ export const getBannerByUserService = async (
   { user_id }: Args
 ) => {
   try {
-    const banners = await getBannerByUserIdQuery(user_id);
+    const banners = await getBannerByUserIdFromCache(user_id);
 
-    // if (!banners.length) throw new Error("no banner found");
+    if (!banners) throw new Error("no banner found");
     return banners;
   } catch (error) {
     return Promise.reject(error);

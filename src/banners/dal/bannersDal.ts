@@ -38,7 +38,7 @@ export const addBanner = async (banner: NewBannerI) => {
 export const getAllBannersQuery = async () => {
   try {
     const banners = await Banner.find({});
-    return banners;
+    return banners as BannerI[];
   } catch (error) {
     return Promise.reject(error);
   }
