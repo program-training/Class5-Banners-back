@@ -10,7 +10,7 @@
     "start": "node .",
     "lint": "eslint src --ext .ts --max-warnings 0"
   },
-  "author": "",
+  "author": "team 3 yitzchak",
   "license": "ISC",
   "dependencies": {
     "-": "^0.0.1",
