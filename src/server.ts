@@ -39,7 +39,7 @@ export const start = async () => {
 
         console.log(chalk.blue("connecting to redis..."));
         await redisClient.connect();
-        redisClient.isReady && console.log(chalk.green("connected to redis"));
+        if (redisClient.isReady) console.log(chalk.green("connected to redis"));
 
         console.log(chalk.blue("connecting to mongoBD..."));
         if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);
