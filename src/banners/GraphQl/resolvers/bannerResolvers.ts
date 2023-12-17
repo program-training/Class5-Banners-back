@@ -16,9 +16,9 @@ import getUnBanneredProducts from "../../helpers/getUnbanneredProducts";
 import { Args } from "../interface/graphqlArgument";
 
 export const addBannerService = async (
-  _: any,
+  _: unknown,
   { banner }: Args,
-  { user_id }: any
+  { user_id }: Args
 ) => {
   try {
     banner.authorID = user_id;
@@ -29,7 +29,7 @@ export const addBannerService = async (
   }
 };
 
-export const deleteBannerService = async (_: any, { bannerId }: Args) => {
+export const deleteBannerService = async (_: unknown, { bannerId }: Args) => {
   try {
     const deletedBanner = await deleteBannerQuery(bannerId);
     if (!deletedBanner) throw new Error("banner not found");
@@ -39,7 +39,10 @@ export const deleteBannerService = async (_: any, { bannerId }: Args) => {
   }
 };
 
-export const getBannerByProdIDService = async (_: any, { productID }: Args) => {
+export const getBannerByProdIDService = async (
+  _: unknown,
+  { productID }: Args
+) => {
   try {
     const banner = await getBannerByProdIDFromCache(productID);
     if (!banner) throw new Error("no banner found");
@@ -60,7 +63,7 @@ export const getAllBannersService = async () => {
 };
 
 export const getBannerByBannerIDService = async (
-  _: any,
+  _: unknown,
   { bannerId }: Args
 ) => {
   try {
@@ -73,9 +76,9 @@ export const getBannerByBannerIDService = async (
 };
 
 export const getBannerByUserService = async (
-  _: any,
+  _: unknown,
   _args: Args,
-  { user_id }: any
+  { user_id }: Args
 ) => {
   try {
     const banners = await getBannerByUserIdFromCache(user_id);
@@ -102,7 +105,7 @@ export const getProductForBanners = async () => {
 };
 
 export const updateBannerService = async (
-  _: any,
+  _: unknown,
   { bannerId, properties }: Args
 ) => {
   try {
