@@ -1,13 +1,12 @@
-import { ApolloServer, BaseContext } from "@apollo/server";
-import apolloLogger from "./logger/apolloLogger";
+import { ApolloServer } from "apollo-server-express";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
-import { UserFromToken } from "../users/resolvers/userResolvers";
+import { authorizationMiddleWare } from "../middleware/authorization";
 
-const server = new ApolloServer<UserFromToken | BaseContext>({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [apolloLogger],
+  context: authorizationMiddleWare,
 });
 
 export default server;
