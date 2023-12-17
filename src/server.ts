@@ -32,10 +32,8 @@ export const start = async () => {
         server.applyMiddleware({ app } as ServerRegistration);
 
         console.log(chalk.blue("testing products server..."));
-
         if (!process.env.ERP_BASE_URL)
           throw new Error(errors.productsURLmissing);
-
         await axios.get(process.env.ERP_BASE_URL);
         console.log(chalk.green("products server is up"));
 
