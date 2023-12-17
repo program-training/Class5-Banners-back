@@ -1,9 +1,9 @@
 import { Response } from "express";
 import chalk from "chalk";
 
-export const handleError = (
+export const handleError = <T>(
   res: Response,
-  error: any,
+  error: T,
   status: number = 400
 ) => {
   if (error && error instanceof Error)

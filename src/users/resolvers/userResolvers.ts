@@ -18,7 +18,7 @@ interface User {
   user: UserInterface;
 }
 
-export const loginService = async (_: any, { user }: User) => {
+export const loginService = async (_: unknown, { user }: User) => {
   try {
     if (!user.email || !user.password) throw new Error("invalid details");
     const userCheck = await getUserByEmailQuery(user.email);
@@ -48,8 +48,8 @@ export interface UserFromToken extends BaseContext {
 }
 
 export const deleteUserService = async (
-  _: any,
-  _args: any,
+  _: unknown,
+  _args: unknown,
   { user_id }: UserFromToken
 ) => {
   try {
@@ -62,8 +62,8 @@ export const deleteUserService = async (
 };
 
 export const getUserService = async (
-  _: any,
-  _args: any,
+  _: unknown,
+  _args: unknown,
   { username }: UserFromToken
 ) => {
   try {
@@ -75,7 +75,7 @@ export const getUserService = async (
   }
 };
 
-export const signup = async (_: any, { user }: User) => {
+export const signup = async (_: unknown, { user }: User) => {
   try {
     const hash = generateUserPassword(user.password);
     const addedUser = await addUser({ ...user, password: hash });
@@ -86,7 +86,7 @@ export const signup = async (_: any, { user }: User) => {
 };
 
 export const updatedUserService = async (
-  _: any,
+  _: unknown,
   { user: userData }: User,
   { user_id }: UserFromToken
 ) => {

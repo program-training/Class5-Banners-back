@@ -6,16 +6,16 @@ import handleGetBannerByUserReq from "../controllers/getBannerByUSerID";
 import handleDeleteBannerReq from "../controllers/delete-banner";
 import handleEditBanner from "../controllers/edit-banner";
 import handleGetUnBanneredProducts from "../controllers/getUnbunneredProducts";
-import { requireAuth } from "../../middleware/authorization";
+import { authorizationMiddleWare } from "../../middleware/authorization";
 
 const router = Router();
 
 router.get("/", handleGetAllBannersReq);
-router.get("/products", requireAuth, handleGetUnBanneredProducts);
-router.get("/mybanners", requireAuth, handleGetBannerByUserReq);
+router.get("/products", authorizationMiddleWare, handleGetUnBanneredProducts);
+router.get("/mybanners", authorizationMiddleWare, handleGetBannerByUserReq);
 router.get("/:id", handleGetBannerByIdReq);
-router.post("/new", requireAuth, addBanner);
-router.put("/:id", requireAuth, handleEditBanner);
-router.delete("/:id", requireAuth, handleDeleteBannerReq);
+router.post("/new", authorizationMiddleWare, addBanner);
+router.put("/:id", authorizationMiddleWare, handleEditBanner);
+router.delete("/:id", authorizationMiddleWare, handleDeleteBannerReq);
 
 export default router;

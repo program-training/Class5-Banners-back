@@ -7,18 +7,17 @@ import connectToMongoDB from "./utils/connect-to-mongoDB";
 import initialPostgreSQL from "./utils/initial-postgreSQL";
 import initialMongo from "./utils/initial-mongo";
 import axios from "axios";
-import { startStandaloneServer } from "@apollo/server/standalone";
 import server from "./graphql/apolloServer";
-import { authorizationMiddleWare } from "./middleware/authorization";
 import corsHandler from "./cors/custom-cors";
 import morganLogger from "./logger/morgan-logger";
 import express from "express";
 import "dotenv/config";
 import { handleServerError } from "./handlers/errorHandler";
+import { ServerRegistration } from "apollo-server-express";
 
 const PORT = process.env.PORT;
 
-const app = express();
+export const app = express();
 app.use(handleServerError);
 app.use(morganLogger);
 app.use(corsHandler);
@@ -29,7 +28,7 @@ export const start = async () => {
     server
       .start()
       .then(async () => {
-        server.applyMiddleware({ app } as any);
+        server.applyMiddleware({ app } as ServerRegistration);
 
         console.log(chalk.blue("testing products server..."));
 

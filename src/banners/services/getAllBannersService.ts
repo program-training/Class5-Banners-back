@@ -1,4 +1,3 @@
-import { getUserByID } from "../../users/dal/users-DAL";
 import { getAllBannersQuery } from "../dal/banners-DAL";
 
 const getAllBannersService = async () => {

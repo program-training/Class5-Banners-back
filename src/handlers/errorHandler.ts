@@ -1,9 +1,9 @@
-import { NextFunction, Response, Request } from "express";
+import { Response, Request } from "express";
 import chalk from "chalk";
 
-export const handleError = (
+export const handleError = <T>(
   res: Response,
-  error: any,
+  error: T,
   status: number = 400
 ) => {
   if (error && error instanceof Error)
@@ -20,8 +20,7 @@ export const handleJsonfileError = <T>(error: T) => {
 export const handleServerError = (
   error: Error,
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ) => {
   console.log(chalk.redBright(error.message));
   res.status(500).send(error.message);
