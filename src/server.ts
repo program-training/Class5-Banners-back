@@ -39,6 +39,10 @@ export const start = async () => {
 
         console.log(chalk.blue("connecting to redis..."));
         await redisClient.connect();
+        redisClient.isReady && console.log(chalk.green("connected to redis"));
+
+        console.log(chalk.blue("connecting to redis..."));
+        await redisClient.connect();
         if (redisClient.isReady) console.log(chalk.green("connected to redis"));
 
         console.log(chalk.blue("connecting to mongoBD..."));
