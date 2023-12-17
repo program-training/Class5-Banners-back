@@ -14,11 +14,12 @@ import express from "express";
 import "dotenv/config";
 import { handleServerError } from "./handlers/errorHandler";
 import { ServerRegistration } from "apollo-server-express";
+import redisClient from "./utils/connectToRedis";
 
 const PORT = process.env.PORT;
 
 export const app = express();
-app.use(handleServerError);
+// app.use(handleServerError);
 app.use(morganLogger);
 app.use(corsHandler);
 
@@ -35,6 +36,10 @@ export const start = async () => {
           throw new Error(errors.productsURLmissing);
         await axios.get(process.env.ERP_BASE_URL);
         console.log(chalk.green("products server is up"));
+
+        console.log(chalk.blue("connecting to redis..."));
+        await redisClient.connect();
+        if (redisClient.isReady) console.log(chalk.green("connected to redis"));
 
         console.log(chalk.blue("connecting to mongoBD..."));
         if (!process.env.MONGODB_URI) throw new Error(errors.mongoDBURImissing);

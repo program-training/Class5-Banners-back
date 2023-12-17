@@ -4,7 +4,6 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 const logFile = path.join(__dirname, `/logs/${morganDay()}-access.log`);
-
 const morganLogger = morgan((tokens, req, res) => {
   const status = tokens.status(req, res);
   const morganString = [
