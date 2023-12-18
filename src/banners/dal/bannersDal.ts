@@ -63,6 +63,7 @@ export const getBannerByBannerIDQuery = async (bannerId: string) => {
     return Promise.reject(error);
   }
 };
+
 export const getBannerByUserIdQuery = async (authorID: string) => {
   try {
     const banners = await Banner.find({ authorID: authorID });
@@ -71,6 +72,7 @@ export const getBannerByUserIdQuery = async (authorID: string) => {
     return Promise.reject(error);
   }
 };
+
 export const updateBannerQuery = async (
   bannerId: string,
   properties: Partial<BannerI>

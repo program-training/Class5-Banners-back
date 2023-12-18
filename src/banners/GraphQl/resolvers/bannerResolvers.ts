@@ -20,6 +20,8 @@ export const addBannerService = async (
   { user_id }: Args
 ) => {
   try {
+    console.log(banner, user_id);
+
     banner.authorID = user_id;
     const newBanner = await addBannerToCache(banner);
     return newBanner;

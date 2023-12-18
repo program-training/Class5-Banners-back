@@ -21,7 +21,7 @@ export const typeBanner = `
   discountPercentage: Int
   imageUrl: String
   imageAlt: String
-  }
+  },
   input inputBanner {
     productID: ID
     title: String
