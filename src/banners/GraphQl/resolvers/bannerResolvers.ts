@@ -1,3 +1,4 @@
+import redisClient from "../../../utils/connectToRedis";
 import getAllProducts from "../../../utils/getAllProducts";
 import {
   addBannerToCache,
@@ -20,8 +21,6 @@ export const addBannerService = async (
   { user_id }: Args
 ) => {
   try {
-    console.log(banner, user_id);
-
     banner.authorID = user_id;
     const newBanner = await addBannerToCache(banner);
     return newBanner;
@@ -34,6 +33,7 @@ export const deleteBannerService = async (_: unknown, { bannerId }: Args) => {
   try {
     const deletedBanner = await deleteBannerQuery(bannerId);
     if (!deletedBanner) throw new Error("banner not found");
+    await redisClient.json.del("banners", `$..[?(@._id=='${bannerId}')]`);
     return deletedBanner;
   } catch (error) {
     return Promise.reject(error);
