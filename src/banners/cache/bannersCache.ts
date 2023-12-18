@@ -6,6 +6,7 @@ import {
   getBannerByBannerIDQuery,
   getBannerByProdIDQuery,
   getBannerByUserIdQuery,
+  updateBannerQuery,
 } from "../dal/bannersDal";
 import { NewBannerI } from "../../interfaces/interfaces";
 
@@ -97,6 +98,24 @@ export const getBannerByUserIdFromCache = async (userId: string) => {
       );
     }
     return banner;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const updateBannerFromCache = async (
+  bannerId: string,
+  properties: Partial<NewBannerI>
+) => {
+  try {
+    const updateDb = await updateBannerQuery(bannerId, properties);
+    if (updateDb)
+      await redisClient.json.set(
+        "banners",
+        `$..[?(@._id=='${bannerId}')]`,
+        updateDb as unknown as RedisJSON
+      );
+    return updateDb;
   } catch (error) {
     return Promise.reject(error);
   }

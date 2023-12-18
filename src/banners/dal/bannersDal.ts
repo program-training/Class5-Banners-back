@@ -12,6 +12,7 @@ const bannerSchema = new Schema<BannerI>(
     note: { type: String },
     productURL: { type: String, require: true },
     authorID: { type: String, required: true },
+    authorUsername: { type: String },
   },
   { timestamps: true, versionKey: "" }
 );

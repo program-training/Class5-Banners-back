@@ -7,6 +7,7 @@ export const typeBanner = `
     imageURL: String
     note: String
     productURL: String
+    authorUsername: String
     authorID: ID
     _id: ID
     createdAt: String
@@ -41,6 +42,7 @@ export const typeBanner = `
     note: String
     productURL: String
     authorID: ID
+    authorUsername: String
     _id: ID
     createdAt: String
   }
