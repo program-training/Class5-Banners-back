@@ -5,7 +5,7 @@ const whiteList = [
   "https://sparkly-souffle-e37dff.netlify.app/",
 ];
 
-const corsOptions: CorsOptionsDelegate = (req, callback) => {
+export const corsOptions: CorsOptionsDelegate = (req, callback) => {
   console.log(req.headers.origin);
 
   const isExist = whiteList.find((api) => api === req.headers.origin);

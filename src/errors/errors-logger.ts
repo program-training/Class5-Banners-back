@@ -1,3 +1,3 @@
-export default (error: any) => {
-    console.error(error);
-}
+export default (error: unknown) => {
+  console.error(error);
+};
