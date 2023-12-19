@@ -1,5 +1,7 @@
 import "dotenv/config";
+import { expressMiddleware } from "@apollo/server/express4";
 import chalk from "chalk";
+import BodyParser from "body-parser";
 import { transporter } from "./utils/send-email";
 import errors from "./errors/errors";
 import connectToPostgreSQL from "./utils/connect-to-postgreSQL";
@@ -13,23 +15,57 @@ import morganLogger from "./logger/morgan-logger";
 import express from "express";
 import "dotenv/config";
 import { handleServerError } from "./handlers/errorHandler";
-import { ServerRegistration } from "apollo-server-express";
+import { ApolloServer } from "@apollo/server";
 import redisClient from "./utils/connectToRedis";
+import { createServer } from "http";
+import { WebSocketServer } from "ws";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import typeDefs from "./graphql/typeDefs";
+import resolvers from "./graphql/resolvers";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 
 const PORT = process.env.PORT;
 
-export const app = express();
-app.use(handleServerError);
-app.use(morganLogger);
-app.use(corsHandler);
+const app = express();
+const httpServer = createServer(app);
 
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/graphql",
+});
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+const serverCleanup = useServer({ schema }, wsServer);
+const apolloServer = new ApolloServer({
+  schema,
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
+});
 export const start = async () => {
   try {
     if (!PORT) throw new Error(errors.portMissing);
-    server
+    apolloServer
       .start()
       .then(async () => {
-        server.applyMiddleware({ app } as ServerRegistration);
+        app.use(
+          "/graphql",
+          corsHandler,
+          BodyParser.json(),
+          handleServerError,
+          morganLogger,
+          expressMiddleware(apolloServer)
+        );
 
         console.log(chalk.blue("testing products server..."));
         if (!process.env.ERP_BASE_URL)
@@ -68,7 +104,7 @@ export const start = async () => {
 
         if (!process.env.JWT_SECRET) throw new Error(errors.JWTkeyMissing);
 
-        app.listen({ port: PORT }, () =>
+        httpServer.listen({ port: PORT }, () =>
           console.log(
             chalk.blueBright(
               `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`

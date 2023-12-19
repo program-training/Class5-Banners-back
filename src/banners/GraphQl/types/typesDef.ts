@@ -11,6 +11,8 @@ export const typeBanner = `
     authorID: ID
     _id: ID
     createdAt: String
+    views:Int
+    viewsTime:[String]
   },
   type Product {
     id: String
@@ -55,9 +57,14 @@ export const typeBannerQueries = `
     getBannerByBannerIDService(bannerId: ID): Banner
     getBannerByUserService(authorID: ID): [Banner]
     getProductForBanners:[Product]
+    getBannersViews:[Banner]
 `;
 export const typeBannerMutation = `
   addBannerService(banner: inputBanner): Banner
   updateBannerService( bannerId: ID, properties:editBannerInput ): Banner 
   deleteBannerService( bannerId: ID): Banner 
+`;
+
+export const typeBannerSub = `
+getBannersViews:[Banner]
 `;

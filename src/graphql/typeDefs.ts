@@ -2,6 +2,7 @@ import {
   typeBanner,
   typeBannerMutation,
   typeBannerQueries,
+  typeBannerSub,
 } from "../banners/GraphQl/types/typesDef";
 import UserTypes, {
   userInputs,
@@ -22,7 +23,11 @@ type Mutation{
 ${userTypesMutation}
 ${typeBannerMutation}
 
+},
+type Subscription{
+${typeBannerSub}
 }
+
 ,${userInputs},
 
 ,

@@ -1,5 +1,6 @@
 import bannersMutation from "./mutation/bannersMutation";
 import bannersQueries from "./query/bannersQueries";
+import { bannersSub } from "./subscription/subscription";
 
 const resolvers = {
   Query: {
@@ -7,6 +8,9 @@ const resolvers = {
   },
   Mutation: {
     ...bannersMutation,
+  },
+  Subscription: {
+    ...bannersSub,
   },
 };
 

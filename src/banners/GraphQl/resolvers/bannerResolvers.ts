@@ -1,3 +1,4 @@
+import { PubSub } from "graphql-subscriptions";
 import redisClient from "../../../utils/connectToRedis";
 import getAllProducts from "../../../utils/getAllProducts";
 import {
@@ -38,12 +39,13 @@ export const deleteBannerService = async (_: unknown, { bannerId }: Args) => {
 };
 
 export const getBannerByProdIDService = async (
-  _: unknown,
+  _: never,
   { productID }: Args
 ) => {
   try {
     const banner = await getBannerByProdIDFromCache(productID);
     if (!banner) throw new Error("no banner found");
+    pubsub.publish("bannerViews", { bannerViews: [banner] });
     return banner;
   } catch (error) {
     return Promise.reject(error);
@@ -113,4 +115,9 @@ export const updateBannerService = async (
   } catch (error) {
     return Promise.reject(error);
   }
+};
+
+export const pubsub = new PubSub();
+export const getBannersViews = async () => {
+  return { subscribe: () => pubsub.asyncIterator(["bannerViews"]) };
 };
