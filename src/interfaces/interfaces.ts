@@ -28,10 +28,13 @@ export interface NewBannerReqI {
 
 export interface NewBannerI extends NewBannerReqI {
   authorID: string;
+  authorUsername: string;
 }
 
 export interface BannerI extends NewBannerI {
   _id: string;
+  views: number;
+  viewTimes: string[];
 }
 
 export interface ShopProductInterface {

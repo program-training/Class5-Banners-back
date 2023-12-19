@@ -1,4 +1,6 @@
-import { Banner, getAllBannersQuery } from "../banners/dal/banners-DAL";
+import {} from "../banners/GraphQl/resolvers/bannerResolvers";
+import { getAllBannersQuery } from "../banners/dal/bannersDal";
+import { Banner } from "../banners/models/bannerModel";
 import { NewBannerI, ShopProductInterface } from "../interfaces/interfaces";
 import getAllProducts from "./getAllProducts";
 
@@ -17,6 +19,7 @@ const initialMongo = async () => {
         imageURL: product.imageUrl,
         productURL: `https://erp-server-v2.onrender.com/shop_inventory/${product.id}`,
         authorID: "1",
+        authorUsername: "admin",
         note: "",
       });
     });

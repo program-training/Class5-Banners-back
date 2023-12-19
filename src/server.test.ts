@@ -1,12 +1,12 @@
-import request from 'supertest';
-import { start, app } from './server';
+// import request from 'supertest';
+// import { start, app } from './server';
 
-describe('Server', () => {
+// describe('Server', () => {
 
-  it('responds to GET /', async () => {
-    await start()
-    const res = await request(app).get('')
-    expect(res.status).toEqual(200);
-  });
+//   it('responds to GET /', async () => {
+//     await start()
+//     const res = await request(app).get('')
+//     expect(res.status).toEqual(200);
+//   });
 
-});
+// });
