@@ -1,3 +1,4 @@
+import redisClient from "../../../utils/connectToRedis";
 import getAllProducts from "../../../utils/getAllProducts";
 import {
   addBannerToCache,
@@ -5,12 +6,9 @@ import {
   getBannerByBannerIDFromCache,
   getBannerByProdIDFromCache,
   getBannerByUserIdFromCache,
+  updateBannerFromCache,
 } from "../../cache/bannersCache";
-import {
-  deleteBannerQuery,
-  getAllBannersQuery,
-  updateBannerQuery,
-} from "../../dal/bannersDal";
+import { deleteBannerQuery, getAllBannersQuery } from "../../dal/bannersDal";
 import getUnBanneredProducts from "../../helpers/getUnbanneredProducts";
 import { Args } from "../interface/graphqlArgument";
 
@@ -32,6 +30,7 @@ export const deleteBannerService = async (_: unknown, { bannerId }: Args) => {
   try {
     const deletedBanner = await deleteBannerQuery(bannerId);
     if (!deletedBanner) throw new Error("banner not found");
+    await redisClient.json.del("banners", `$..[?(@._id=='${bannerId}')]`);
     return deletedBanner;
   } catch (error) {
     return Promise.reject(error);
@@ -108,9 +107,7 @@ export const updateBannerService = async (
   { bannerId, properties }: Args
 ) => {
   try {
-    console.log(properties, bannerId);
-
-    const update = await updateBannerQuery(bannerId, properties);
+    const update = await updateBannerFromCache(bannerId, properties);
 
     return update;
   } catch (error) {

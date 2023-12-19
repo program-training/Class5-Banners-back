@@ -22,7 +22,8 @@ export const loginService = async (_: unknown, { user }: User) => {
   try {
     if (!user.email || !user.password) throw new Error("invalid details");
     const userCheck = await getUserByEmailQuery(user.email);
-    if (!userCheck) throw new Error("user does not exist! please register");
+    if (!userCheck.length)
+      throw new Error("user does not exist! please register");
 
     const passwordCheck = comparePassword(
       user.password as string,
@@ -33,7 +34,6 @@ export const loginService = async (_: unknown, { user }: User) => {
 
     const { isAdmin, user_id, username } = userCheck[0];
     const token = generateToken(user_id.toString(), isAdmin, username);
-
     return token;
   } catch (error) {
     return Promise.reject(error);

@@ -12,6 +12,7 @@ const bannerSchema = new Schema<BannerI>(
     note: { type: String },
     productURL: { type: String, require: true },
     authorID: { type: String, required: true },
+    authorUsername: { type: String },
   },
   { timestamps: true, versionKey: "" }
 );
@@ -63,6 +64,7 @@ export const getBannerByBannerIDQuery = async (bannerId: string) => {
     return Promise.reject(error);
   }
 };
+
 export const getBannerByUserIdQuery = async (authorID: string) => {
   try {
     const banners = await Banner.find({ authorID: authorID });
@@ -71,6 +73,7 @@ export const getBannerByUserIdQuery = async (authorID: string) => {
     return Promise.reject(error);
   }
 };
+
 export const updateBannerQuery = async (
   bannerId: string,
   properties: Partial<BannerI>

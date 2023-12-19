@@ -7,6 +7,7 @@ export const typeBanner = `
     imageURL: String
     note: String
     productURL: String
+    authorUsername: String
     authorID: ID
     _id: ID
     createdAt: String
@@ -21,7 +22,7 @@ export const typeBanner = `
   discountPercentage: Int
   imageUrl: String
   imageAlt: String
-  }
+  },
   input inputBanner {
     productID: ID
     title: String
@@ -41,6 +42,7 @@ export const typeBanner = `
     note: String
     productURL: String
     authorID: ID
+    authorUsername: String
     _id: ID
     createdAt: String
   }

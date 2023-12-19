@@ -18,6 +18,7 @@ const initialMongo = async () => {
         imageURL: product.imageUrl,
         productURL: `https://erp-server-v2.onrender.com/shop_inventory/${product.id}`,
         authorID: "1",
+        authorUsername: "admin",
         note: "",
       });
     });
