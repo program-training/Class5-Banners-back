@@ -9,6 +9,7 @@ import {
   updateBannerQuery,
 } from "../dal/bannersDal";
 import { NewBannerI } from "../../interfaces/interfaces";
+import { Banner } from "../models/bannerModel";
 
 export const getAllBannersFromCache = async () => {
   try {
@@ -65,6 +66,11 @@ export const addBannerToCache = async (banner: NewBannerI) => {
 
 export const getBannerByProdIDFromCache = async (prodId: string) => {
   try {
+    await Banner.findOneAndUpdate(
+      { productID: prodId },
+      { $inc: { views: 1 }, $push: { viewTimes: new Date() } },
+      { new: true }
+    );
     let banner;
     banner = await redisClient.json.get("banners", {
       path: `$..[?(@.productID=='${prodId}')]`,

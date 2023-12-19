@@ -33,6 +33,8 @@ export interface NewBannerI extends NewBannerReqI {
 
 export interface BannerI extends NewBannerI {
   _id: string;
+  views: number;
+  viewTimes: string[];
 }
 
 export interface ShopProductInterface {

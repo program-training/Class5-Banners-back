@@ -1,23 +1,6 @@
-import { Schema, model } from "mongoose";
 import { BannerI, NewBannerI } from "../../interfaces/interfaces";
 import errors from "../../errors/errors";
-
-const bannerSchema = new Schema<BannerI>(
-  {
-    productID: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    category: { type: String, required: true },
-    imageURL: { type: String, required: true },
-    note: { type: String },
-    productURL: { type: String, require: true },
-    authorID: { type: String, required: true },
-    authorUsername: { type: String },
-  },
-  { timestamps: true, versionKey: "" }
-);
-
-export const Banner = model("banner", bannerSchema);
+import { Banner } from "../models/bannerModel";
 
 export const addBanner = async (banner: NewBannerI) => {
   try {
@@ -47,7 +30,7 @@ export const getAllBannersQuery = async () => {
 
 export const getBannerByProdIDQuery = async (productID: string) => {
   try {
-    const banner = await Banner.find({ productID: productID });
+    const banner = await Banner.findOne({ productID: productID });
     if (!banner)
       throw new Error(`Banner with product id ${productID} not found`);
     return banner;

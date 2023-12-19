@@ -1,5 +1,6 @@
 import {} from "../banners/GraphQl/resolvers/bannerResolvers";
-import { Banner, getAllBannersQuery } from "../banners/dal/bannersDal";
+import { getAllBannersQuery } from "../banners/dal/bannersDal";
+import { Banner } from "../banners/models/bannerModel";
 import { NewBannerI, ShopProductInterface } from "../interfaces/interfaces";
 import getAllProducts from "./getAllProducts";
 
